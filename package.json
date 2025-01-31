@@ -1,0 +1,100 @@
+{
+  "name": "vue-forms-manager",
+  "version": "0.0.1",
+  "description": "Vue Form Manager",
+  "main": "dist/index.umd.js",
+  "module": "dist/index.es.js",
+  "sideEffects": false,
+  "author": "Anton Stroinsky<stroinsky.a@gmail.com>",
+  "license": "MIT",
+  "keywords": [
+    "vue",
+    "validate",
+    "async-validate",
+    "forms"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/intermundos/vue-forms-manager.git"
+  },
+  "files": [
+    "dist",
+    "*.md"
+  ],
+  "types": "dist/index.d.ts",
+  "bugs": {
+    "url": "https://github.com/intermundos/vue-forms-manager/issues"
+  },
+  "homepage": "https://github.com/intermundos/vue-forms-manager/tree/master#readme",
+  "scripts": {
+    "clean": "rimraf dist* coverage",
+    "format": "eslint --fix --ext=ts .",
+    "type": "tsc --outdir dist",
+    "test": "vue-demi-switch 3 && bun test",
+    "build:library": "vue-demi-switch 3 && bun clean && vite build --config config/library.ts && bun type",
+    "release": "bun build:library"
+  },
+  "dependencies": {
+    "vue-demi": "^0.13.11"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^0.26.2",
+    "@trivago/prettier-plugin-sort-imports": "^3.3.0",
+    "@types/bun": "^1.2.1",
+    "@types/node": "^18.7.14",
+    "@vue/compiler-sfc": "^3.2.37",
+    "c8": "^7.12.0",
+    "eslint": "^8.23.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.7.1",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.8.2",
+    "vite": "6.0.9",
+    "vue": "^3.5.13"
+  },
+  "peerDependencies": {
+    "vue": ">=3.0.0"
+  },
+  "prettier": {
+    "arrowParens": "avoid",
+    "bracketSpacing": true,
+    "htmlWhitespaceSensitivity": "ignore",
+    "insertPragma": false,
+    "jsxSingleQuote": false,
+    "printWidth": 80,
+    "proseWrap": "preserve",
+    "quoteProps": "as-needed",
+    "requirePragma": false,
+    "semi": true,
+    "singleQuote": true,
+    "tabWidth": 2,
+    "trailingComma": "all",
+    "useTabs": false,
+    "importOrder": [
+      "^@(.*)/(.*)$",
+      "^[./]"
+    ]
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "browser": true,
+      "node": true
+    },
+    "plugins": [
+      "prettier"
+    ],
+    "extends": [
+      "@antfu/eslint-config",
+      "prettier"
+    ],
+    "rules": {
+      "no-console": "off",
+      "@typescript-eslint/no-use-before-define": "off",
+      "prettier/prettier": "error",
+      "import/export": "off",
+      "antfu/if-newline": "off"
+    }
+  }
+}
