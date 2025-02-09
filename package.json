@@ -1,7 +1,8 @@
 {
   "name": "@geobot/vue-forms-manager",
   "version": "1.0.0",
-  "description": "Vue Form Manager",
+  "description": "Vue Forms Manager",
+  "type": "module",
   "main": "dist/index.umd.js",
   "module": "dist/index.es.js",
   "sideEffects": false,
@@ -27,12 +28,11 @@
   },
   "homepage": "https://github.com/intermundos/vue-forms-manager/tree/master#readme",
   "scripts": {
-    "clean": "rimraf dist",
+    "clean": "rm -rf ./dist",
     "format": "eslint --fix --ext=ts .",
     "type": "tsc --outdir dist",
     "test": "bun test",
-    "build": "vue-demi-switch 3 && bun clean && vite build --config config/library.ts && bun type",
-    "release": "bun build"
+    "build": "bun clean && vite build --config config/library.ts && bun type"
   },
   "dependencies": {
     "vue-demi": "^0.13.11"
@@ -44,13 +44,12 @@
     "@types/node": "^18.7.14",
     "@vitejs/plugin-vue": "^5.2.1",
     "@vue/compiler-sfc": "^3.2.37",
-    "c8": "^7.12.0",
     "eslint": "^8.23.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
     "prettier": "^2.7.1",
     "rimraf": "^3.0.2",
-    "typescript": "^4.8.2",
+    "typescript": "^5.7.3",
     "vite": "6.0.9",
     "vue": "^3.5.13"
   },
