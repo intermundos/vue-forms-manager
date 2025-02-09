@@ -4,18 +4,28 @@
     "module": "esnext",
     "moduleResolution": "node",
     "strict": true,
-    "jsx": "preserve",
     "sourceMap": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "lib": ["esnext", "dom"],
-    "types": ["bun"],
+    "baseUrl": ".",
+    "lib": [
+      "esnext",
+      "dom"
+    ],
+    "types": [
+      "bun"
+    ],
     "skipLibCheck": true,
     "declaration": true,
     "emitDeclarationOnly": false,
     "paths": {
-      "vue-forms-manager": ["./src"]
+      "vue-forms-manager": [
+        "./src"
+      ]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts"]
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts"
+  ]
 }

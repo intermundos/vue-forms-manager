@@ -1,2 +1,2 @@
 export * from './types';
-export { FormManager } from './vue-form-manager';
+export { FormsManager } from './vue-forms-manager';

@@ -1,38 +1,72 @@
-export interface FormManagerInstance<T extends Record<string, any>> {
-  $form: {
-    $invalid: boolean;
-    $dirty: boolean;
-    $errors: string[];
-    $validate: () => boolean;
-    $reset: () => void;
-    $update: (newData: Partial<T>) => void;
-    $touch: () => void;
-  };
-  $fields: {
-    [K in keyof T]: FieldState<T[K]>;
-  };
-}
+export type FormConfigPropertyType = 'primitive' | 'array' | 'group';
+export type FieldValueSingle = string | number | boolean | null | undefined;
+export type FieldValueArray = FieldValueSingle[];
+export type FieldValue = FieldValueSingle | FieldValueArray;
 
-type ValidationMessage<T> = string | ((value: T) => string);
+export type Path<T, P extends string = ''> = T extends object
+  ? {
+      [K in keyof T]: K extends string | number
+        ? Path<T[K], `${P}${P extends '' ? '' : '.'}${K}`>
+        : never;
+    }[keyof T]
+  : P;
 
-export interface ValidationRule<T> {
+interface ValidationError {
   name: string;
-  message: ValidationMessage<T>;
-  test: (value: T) => boolean;
+  message?: string | null;
 }
 
-export interface FieldState<T> {
+export type ValidationRuleTest<Value> = (
+  value: Value,
+) => boolean | Promise<boolean>;
+
+export interface ValidationRule<Value extends FieldValue> {
+  name: string;
+  message: string | ((value: Value) => string);
+  test: ValidationRuleTest<Value>;
+}
+
+export type ValidationRules<State extends Record<string, any>> = {
+  [K in keyof State]?: State[K] extends FieldValue
+    ? ValidationRule<State[K]>[]
+    : ValidationRules<State[K]>;
+};
+
+export type RecursiveRecord<T> = {
+  [K in keyof T]: T[K] extends object ? RecursiveRecord<T[K]> : T[K];
+};
+
+export interface FieldInstance<Value extends FieldValue> {
   $invalid: boolean;
   $dirty: boolean;
-  $errors: string[];
+  $errors: ValidationError[];
+  $messages: ValidationError['message'][];
   $touch: () => void;
   $reset: () => void;
-  $update: (value: T) => void;
-  $validate: () => boolean;
-  value: T;
+  $update: (newValue: Value) => void;
+  $validate: () => Promise<boolean>;
+  value: Value;
+  $pending: boolean;
 }
+
+export type FormFieldsRecord<State extends RecursiveRecord<State>> = {
+  [K in keyof State]: State[K] extends FieldValue
+    ? FieldInstance<State[K]>
+    : FormFieldsRecord<State[K]>;
+};
 
 export interface FormOptions {
   lazy?: boolean;
-  autoTouch?: boolean;
+  firstError?: boolean;
+}
+
+export interface FormInstance {
+  $invalid: boolean;
+  $dirty: boolean;
+  $errors: ValidationError[];
+  $messages: ValidationError['message'][];
+  $validate: () => boolean;
+  $reset: () => void;
+  $touch: () => void;
+  $pending: boolean;
 }

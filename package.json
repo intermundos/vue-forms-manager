@@ -27,12 +27,12 @@
   },
   "homepage": "https://github.com/intermundos/vue-forms-manager/tree/master#readme",
   "scripts": {
-    "clean": "rimraf dist* coverage",
+    "clean": "rimraf dist",
     "format": "eslint --fix --ext=ts .",
     "type": "tsc --outdir dist",
-    "test": "vue-demi-switch 3 && bun test",
-    "build:library": "vue-demi-switch 3 && bun clean && vite build --config config/library.ts && bun type",
-    "release": "bun build:library"
+    "test": "bun test",
+    "build": "vue-demi-switch 3 && bun clean && vite build --config config/library.ts && bun type",
+    "release": "bun build"
   },
   "dependencies": {
     "vue-demi": "^0.13.11"

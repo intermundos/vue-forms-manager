@@ -1,7 +1,8 @@
 import { resolve } from 'path';
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
-import { LIBRARY_NAME } from './shared';
+
+export const LIBRARY_NAME = 'vue-forms-manger';
 
 export default defineConfig({
   plugins: [vue()],
