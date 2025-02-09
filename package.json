@@ -1,6 +1,6 @@
 {
   "name": "@geobot/vue-forms-manager",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Vue Forms Manager",
   "type": "module",
   "main": "dist/index.umd.js",
