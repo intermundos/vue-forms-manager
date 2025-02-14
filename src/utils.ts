@@ -1,9 +1,4 @@
-import type {
-  FieldValue,
-  FormConfigPropertyType,
-  Path,
-  RecursiveRecord,
-} from './types';
+import type { FieldValue, FormConfigPropertyType, Path } from './types';
 
 export function* traverseFormStructure<
   State extends Record<string, any>,
@@ -72,7 +67,7 @@ export function getInPath<T extends Record<string, any>>(
   return path.split('.').reduce((acc, key) => acc && acc[key], obj as any);
 }
 
-export function setByPath<T extends RecursiveRecord<T>, Value>(
+export function setByPath<T extends Record<string, any>, Value>(
   path: string,
   obj: T,
   value: Value,

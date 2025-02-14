@@ -116,7 +116,10 @@ function buildForm<
         () => {
           field.$field.$touch();
           setByPath(path, state, field.$field.value);
-          // reset on demand
+
+          if (field.$field.$invalid) {
+            field.$field.$reset();
+          }
         },
       );
 
@@ -143,9 +146,14 @@ function buildForm<
         $messages: [],
         $pending: false,
         $touch() {
-          field.$field.$dirty = true;
+          updateField(field.$field)({
+            $dirty: true,
+          });
+
           if (!form.$dirty) {
-            form.$dirty = true;
+            updateForm({
+              $dirty: true,
+            });
           }
         },
         $reset() {
