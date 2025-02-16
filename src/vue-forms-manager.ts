@@ -78,15 +78,18 @@ function buildForm<
       updateForm({ $pending: true });
 
       const fieldsValidationResult = await Promise.all(
-        allFields.map(field => field.$validate()),
+        allFields
+          .filter(field => Boolean(getInPath(rules, field.id)))
+          .map(field => field.$validate()),
       );
 
-      if (fieldsValidationResult.some(Boolean)) {
-        updateForm({ $pending: false });
-        return false;
+      if (fieldsValidationResult.some(result => !result)) {
+        updateForm({ $pending: false, $invalid: true });
+      } else {
+        updateForm({ $pending: false, $invalid: false });
       }
 
-      return true;
+      return !form.$invalid;
     };
 
     const $form = Object.assign(formInstance, {
@@ -228,7 +231,7 @@ function buildForm<
             });
           }
 
-          return field.$field.$invalid;
+          return !field.$field.$invalid;
         },
       } as FieldInstance<ValueType>,
     });
